@@ -2,9 +2,8 @@
 This project is writed by koltin.
 
 WorkFlow:
-
--Call API from network to get data page by page then save it to local, next time will load from local if data exist otherwise will get from API.
--Every 15 minutes app will run an background service to update database (the phone needs to turn on the internet and in idle status).
+ -Call API from network to get data page by page then save it to local, next time will load from local if data exist otherwise will get from API.
+ -Every 15 minutes app will run an background service to update database (the phone needs to turn on the internet and in idle status).
 
 Project is using MVVM+Clean architect.
 
