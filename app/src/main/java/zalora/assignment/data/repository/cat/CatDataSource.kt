@@ -9,5 +9,7 @@ interface CatDataSource {
     }
     interface Local : Remote {
         suspend fun saveCats(cats: List<Cat>)
+        suspend fun deleteCats()
+
     }
 }

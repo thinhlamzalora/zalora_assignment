@@ -6,7 +6,11 @@ import zalora.assignment.domain.utils.Result
 
 class CatLocalDataSource (private val catDao: CatDao): CatDataSource.Local{
     override suspend fun saveCats(cats: List<Cat>) {
-        catDao.insert(cats)
+        catDao.insertCats(cats)
+    }
+
+    override suspend fun deleteCats() {
+        catDao.deleteAllCat()
     }
 
     override suspend fun getCats(page: Int): Result<List<Cat>> {

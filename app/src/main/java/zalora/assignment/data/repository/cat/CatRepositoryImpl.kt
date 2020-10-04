@@ -1,5 +1,6 @@
 package zalora.assignment.data.repository.cat
 
+import zalora.assignment.data.utils.Constant
 import zalora.assignment.domain.model.Cat
 import zalora.assignment.domain.repository.CatRepository
 import zalora.assignment.domain.utils.Result
@@ -10,6 +11,8 @@ class CatRepositoryImpl constructor(
 ): CatRepository {
     override suspend fun getCats(page: Int, forceInternet: Boolean): Result<List<Cat>> {
         if (forceInternet) {
+            if (page == Constant.START_PAGE)
+                clearCats()
             return getCatsFromRemoteDataSource(page)
         }
         return getCatsFromLocalDataSource(page)
@@ -35,5 +38,8 @@ class CatRepositoryImpl constructor(
     }
     private suspend fun saveCats(cats: List<Cat>){
         catLocal.saveCats(cats)
+    }
+    private suspend fun clearCats(){
+        catLocal.deleteCats()
     }
 }
