@@ -42,6 +42,7 @@ class CatAdapter(private val itemSpacing: Int) : RecyclerView.Adapter<CatAdapter
     inner class CatViewHolder internal constructor(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private var target: Target? = null
+        private var onItemClick: ((Cat) -> Unit)? = null
         fun bind(cat: Cat) {
             itemView.apply {
                 if (target == null) {
@@ -49,7 +50,7 @@ class CatAdapter(private val itemSpacing: Int) : RecyclerView.Adapter<CatAdapter
                         override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
                             progressBar.visibility = View.GONE
                             ivCat.setImageBitmap(bitmap)
-                            if (from == Picasso.LoadedFrom.NETWORK){
+                            if (from == Picasso.LoadedFrom.NETWORK || from == Picasso.LoadedFrom.DISK){
                                 ivCat.scaleX = 0f
                                 ivCat.scaleY = 0f
                                 ivCat.animate().setDuration(2000).scaleX(1f).scaleY(1f).start()
@@ -72,9 +73,14 @@ class CatAdapter(private val itemSpacing: Int) : RecyclerView.Adapter<CatAdapter
 
                     }
                 }
+                if (onItemClick == null){
+                    onItemClick = {
+                        ivCat.loadImage(it.image, widthItem, it.heightRatio, target!!)
+                    }
+                }
                 ivCat.loadImage(cat.image, widthItem, cat.heightRatio, target!!)
                 btnRefresh.setOnClickListener {
-                    ivCat.loadImage(cat.image, widthItem, cat.heightRatio, target!!)
+                    onItemClick!!(cat)
                 }
             }
         }

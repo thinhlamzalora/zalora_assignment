@@ -1,6 +1,7 @@
 package zalora.assignment.presentation.di.core
 
 import dagger.Component
+import zalora.assignment.presentation.App
 import zalora.assignment.presentation.di.core.module.AppModule
 import zalora.assignment.presentation.di.core.module.DataModule
 import zalora.assignment.presentation.di.core.module.DatabaseModule
@@ -18,4 +19,6 @@ import javax.inject.Singleton
 ])
 interface CoreComponent {
     fun plus(listCatModule: ListCatModule): ListCatSubComponent
+    fun inject(app: App)
+
 }
