@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_space">6dp</dimen>
+    <dimen name="progress_bar">30dp</dimen>
+
+</resources>

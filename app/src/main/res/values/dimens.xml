@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="item_space">4dp</dimen>
+    <dimen name="progress_bar">20dp</dimen>
+
 </resources>
