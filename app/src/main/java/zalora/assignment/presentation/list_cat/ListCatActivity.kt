@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_list_cat.*
 import zalora.assignment.R
 import zalora.assignment.data.utils.Constant
 import zalora.assignment.data.utils.Constant.PICASO_TAG
+import zalora.assignment.domain.model.Cat
 import zalora.assignment.presentation.base.BaseActivity
 import zalora.assignment.presentation.utils.EndlessRecyclerViewScrollListener
 import zalora.assignment.presentation.utils.SpacesItemDecoration
@@ -37,11 +38,19 @@ class ListCatActivity : BaseActivity<ListCatViewModel>(R.layout.activity_list_ca
         viewModel.catsList.observe(this, Observer {
             catAdapter.addDataSource(it)
         })
-        viewModel.showLoading.observe(this, Observer {
+        viewModel.showLoadingCenter.observe(this, Observer {
             progressBar.visibility = View.VISIBLE
         })
-        viewModel.hideLoading.observe(this, Observer {
+        viewModel.showLoadingBottom.observe(this, Observer {
+            progressBarBottom.visibility = View.VISIBLE
+
+        })
+        viewModel.hideLoadingCenter.observe(this, Observer {
             progressBar.visibility = View.GONE
+        })
+        viewModel.hideLoadingBottom.observe(this, Observer {
+            progressBarBottom.visibility = View.GONE
+
         })
         viewModel.showError.observe(this, Observer {
             Snackbar
@@ -54,7 +63,7 @@ class ListCatActivity : BaseActivity<ListCatViewModel>(R.layout.activity_list_ca
     private fun initView() {
 
         listCat.apply {
-            setItemAnimator(null);
+            itemAnimator = null;
             setHasFixedSize(true);
             setItemViewCacheSize(Constant.PAGE_COUNT);
             adapter = catAdapter

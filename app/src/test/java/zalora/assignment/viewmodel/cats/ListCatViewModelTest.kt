@@ -27,50 +27,99 @@ class ListCatViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun loadCats_onSuccess_hideLoadingAndShowCats() {
+    fun loadCats_onSuccess_hideLoadingAndShowCats_withPage1() {
         coroutineRule.runBlockingTest {
             val catsObs: Observer<List<Cat>> = mock()
             val showLoadingObs: Observer<Unit> = mock()
             val hideLoadingObs: Observer<Unit> = mock()
             viewModel.catsList.observeForever(catsObs)
-            viewModel.showLoading.observeForever(showLoadingObs)
-            viewModel.hideLoading.observeForever(hideLoadingObs)
+            viewModel.showLoadingCenter.observeForever(showLoadingObs)
+            viewModel.hideLoadingCenter.observeForever(hideLoadingObs)
             Mockito.`when`(getCatsUseCase.execute(1, false)).thenReturn(Result.Success(mock()))
             viewModel.loadCats(1)
-            val inOrder = Mockito.inOrder(showLoadingObs, catsObs, hideLoadingObs)
+            val inOrder = Mockito.inOrder(showLoadingObs, hideLoadingObs, catsObs)
             inOrder.verify(showLoadingObs).onChanged(Unit)
-            inOrder.verify(catsObs).onChanged(any())
             inOrder.verify(hideLoadingObs).onChanged(Unit)
+            inOrder.verify(catsObs).onChanged(any())
         }
     }
 
     @Test
-    fun loadCats_onFailure_hideLoadingAndShowErrorMessage() {
+    fun loadCats_onSuccess_hideLoadingAndShowCats_withOtherPages() {
+        coroutineRule.runBlockingTest {
+            val catsObs: Observer<List<Cat>> = mock()
+            val showLoadingObs: Observer<Unit> = mock()
+            val hideLoadingObs: Observer<Unit> = mock()
+            viewModel.catsList.observeForever(catsObs)
+            viewModel.showLoadingBottom.observeForever(showLoadingObs)
+            viewModel.hideLoadingBottom.observeForever(hideLoadingObs)
+            Mockito.`when`(getCatsUseCase.execute(2, false)).thenReturn(Result.Success(mock()))
+            viewModel.loadCats(2)
+            val inOrder = Mockito.inOrder(showLoadingObs, hideLoadingObs, catsObs)
+            inOrder.verify(showLoadingObs).onChanged(Unit)
+            inOrder.verify(hideLoadingObs).onChanged(Unit)
+            inOrder.verify(catsObs).onChanged(any())
+        }
+    }
+
+    @Test
+    fun loadCats_onFailure_hideLoadingAndShowErrorMessage_withPage1() {
         coroutineRule.runBlockingTest {
             val catsObs: Observer<List<Cat>> = mock()
             val errorObs: Observer<String> = mock()
             val showLoadingObs: Observer<Unit> = mock()
             val hideLoadingObs: Observer<Unit> = mock()
             viewModel.catsList.observeForever(catsObs)
-            viewModel.showLoading.observeForever(showLoadingObs)
+            viewModel.showLoadingCenter.observeForever(showLoadingObs)
             viewModel.showError.observeForever(errorObs)
-            viewModel.hideLoading.observeForever(hideLoadingObs)
+            viewModel.hideLoadingCenter.observeForever(hideLoadingObs)
             Mockito.`when`(getCatsUseCase.execute(1, false)).thenReturn(Result.Error("error"))
             viewModel.loadCats(1)
             val inOrder = Mockito.inOrder(showLoadingObs, errorObs, hideLoadingObs)
             inOrder.verify(showLoadingObs).onChanged(Unit)
-            inOrder.verify(errorObs).onChanged(any())
             inOrder.verify(hideLoadingObs).onChanged(Unit)
+            inOrder.verify(errorObs).onChanged(any())
             Mockito.verifyZeroInteractions(catsObs)
         }
     }
 
     @Test
-    fun loadCats_onLoading_showLoadingView() {
+    fun loadCats_onFailure_hideLoadingAndShowErrorMessage_withOtherPages() {
+        coroutineRule.runBlockingTest {
+            val catsObs: Observer<List<Cat>> = mock()
+            val errorObs: Observer<String> = mock()
+            val showLoadingObs: Observer<Unit> = mock()
+            val hideLoadingObs: Observer<Unit> = mock()
+            viewModel.catsList.observeForever(catsObs)
+            viewModel.showLoadingBottom.observeForever(showLoadingObs)
+            viewModel.showError.observeForever(errorObs)
+            viewModel.hideLoadingBottom.observeForever(hideLoadingObs)
+            Mockito.`when`(getCatsUseCase.execute(2, false)).thenReturn(Result.Error("error"))
+            viewModel.loadCats(2)
+            val inOrder = Mockito.inOrder(showLoadingObs, errorObs, hideLoadingObs)
+            inOrder.verify(showLoadingObs).onChanged(Unit)
+            inOrder.verify(hideLoadingObs).onChanged(Unit)
+            inOrder.verify(errorObs).onChanged(any())
+            Mockito.verifyZeroInteractions(catsObs)
+        }
+    }
+
+    @Test
+    fun loadCats_onLoading_showLoadingView_withPage1() {
         coroutineRule.runBlockingTest {
             val showLoadingObs: Observer<Unit> = mock()
-            viewModel.showLoading.observeForever(showLoadingObs)
+            viewModel.showLoadingCenter.observeForever(showLoadingObs)
             viewModel.loadCats(1)
+            Mockito.verify(showLoadingObs).onChanged(Unit)
+        }
+    }
+
+    @Test
+    fun loadCats_onLoading_showLoadingView_withOtherPages() {
+        coroutineRule.runBlockingTest {
+            val showLoadingObs: Observer<Unit> = mock()
+            viewModel.showLoadingBottom.observeForever(showLoadingObs)
+            viewModel.loadCats(2)
             Mockito.verify(showLoadingObs).onChanged(Unit)
         }
     }

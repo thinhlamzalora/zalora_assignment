@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="@dimen/card_corner"
     android:layout_height="wrap_content">
     <zalora.assignment.presentation.views.RatioImage
         android:layout_width="match_parent"
@@ -21,6 +22,6 @@
         android:visibility="invisible"
         android:background="@mipmap/refresh"
         android:layout_height="@dimen/progress_bar"/>
-</FrameLayout>
+</androidx.cardview.widget.CardView>
 
 

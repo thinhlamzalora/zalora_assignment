@@ -13,17 +13,27 @@ import kotlinx.android.synthetic.main.item_cat.view.*
 import zalora.assignment.R
 import zalora.assignment.domain.model.Cat
 import zalora.assignment.presentation.utils.loadImage
+import zalora.assignment.presentation.views.RatioImage
 
 class CatAdapter(private val itemSpacing: Int) : RecyclerView.Adapter<CatAdapter.CatViewHolder>() {
     private val items: ArrayList<Cat> = ArrayList()
-    private val widthItem by lazy {
-        (Resources.getSystem().getDisplayMetrics().widthPixels - itemSpacing * 4) / 3;
+
+
+
+    private val onRefreshClick: ((Cat, Int, RatioImage, Target) -> Unit) = {
+        cat, width, imageView, target ->  imageView.loadImage(cat.image, width, cat.heightRatio, target!!)
     }
+
+    private val widthItem by lazy {
+        (Resources.getSystem().displayMetrics.widthPixels - itemSpacing * 4) / 3;
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewHolder {
         return CatViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_cat, parent, false)
         )
+
     }
 
     override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
@@ -42,18 +52,17 @@ class CatAdapter(private val itemSpacing: Int) : RecyclerView.Adapter<CatAdapter
     inner class CatViewHolder internal constructor(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private var target: Target? = null
-        private var onItemClick: ((Cat) -> Unit)? = null
         fun bind(cat: Cat) {
             itemView.apply {
                 if (target == null) {
                     target = object : Target {
                         override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
                             progressBar.visibility = View.GONE
+                            btnRefresh.visibility = View.GONE
                             ivCat.setImageBitmap(bitmap)
                             if (from == Picasso.LoadedFrom.NETWORK || from == Picasso.LoadedFrom.DISK){
-                                ivCat.scaleX = 0f
-                                ivCat.scaleY = 0f
-                                ivCat.animate().setDuration(2000).scaleX(1f).scaleY(1f).start()
+                                ivCat.alpha = 0f
+                                ivCat.animate().setDuration(3000).alpha(1f).start()
                             }
                         }
 
@@ -63,7 +72,8 @@ class CatAdapter(private val itemSpacing: Int) : RecyclerView.Adapter<CatAdapter
                         ) {
                             progressBar.visibility = View.GONE
                             btnRefresh.visibility = View.VISIBLE
-                            ivCat.setImageBitmap(null)                        }
+                            ivCat.setImageBitmap(null)
+                        }
 
                         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
                             progressBar.visibility = View.VISIBLE
@@ -73,14 +83,9 @@ class CatAdapter(private val itemSpacing: Int) : RecyclerView.Adapter<CatAdapter
 
                     }
                 }
-                if (onItemClick == null){
-                    onItemClick = {
-                        ivCat.loadImage(it.image, widthItem, it.heightRatio, target!!)
-                    }
-                }
                 ivCat.loadImage(cat.image, widthItem, cat.heightRatio, target!!)
                 btnRefresh.setOnClickListener {
-                    onItemClick!!(cat)
+                    onRefreshClick!!(cat, widthItem, ivCat, target!!)
                 }
             }
         }

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="item_space">4dp</dimen>
+    <dimen name="item_space">6dp</dimen>
     <dimen name="progress_bar">20dp</dimen>
+    <dimen name="card_corner">5dp</dimen>
+    <dimen name="refresh_button">40dp</dimen>
 
 </resources>

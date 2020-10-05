@@ -1,6 +1,7 @@
 package zalora.assignment.presentation.list_cat
 
 import androidx.lifecycle.MutableLiveData
+import zalora.assignment.data.utils.Constant
 import zalora.assignment.domain.model.Cat
 import zalora.assignment.domain.usecase.GetCatsUseCase
 import zalora.assignment.presentation.base.BaseViewModel
@@ -13,32 +14,52 @@ class ListCatViewModel internal constructor(
 ) : BaseViewModel(dispatchers) {
 
     private val catsLiveData: MutableLiveData<List<Cat>> = MutableLiveData()
-    private val showLoadingLiveData: MutableLiveData<Unit> = MutableLiveData()
-    private val hideLoadingLiveData: MutableLiveData<Unit> = MutableLiveData()
+    private val showLoadingCenterLiveData: MutableLiveData<Unit> = MutableLiveData()
+    private val hideLoadingCenterLiveData: MutableLiveData<Unit> = MutableLiveData()
+
+    private val showLoadingBottomLiveData: MutableLiveData<Unit> = MutableLiveData()
+    private val hideLoadingBottomLiveData: MutableLiveData<Unit> = MutableLiveData()
+
     private val showErrorLiveData: MutableLiveData<String> = MutableLiveData()
 
     val catsList get() = catsLiveData
-    val showLoading get() = showLoadingLiveData
-    val hideLoading get() = hideLoadingLiveData
+    val showLoadingCenter get() = showLoadingCenterLiveData
+    val hideLoadingCenter get() = hideLoadingCenterLiveData
+    val showLoadingBottom get() = showLoadingBottomLiveData
+    val hideLoadingBottom get() = hideLoadingBottomLiveData
     val showError get() = showErrorLiveData
 
     fun loadCats(page: Int) {
         getCats(page)
     }
 
+
     private fun getCats(page: Int) {
         execute {
-            showLoadingLiveData.postValue(Unit)
+           loadingProcess(true, page)
             when (val result = getCatsUseCase.execute(page, false)) {
                 is Result.Success -> {
+                    loadingProcess(false, page)
                     catsLiveData.postValue(result.data)
                 }
-
                 is Result.Error -> {
+                    loadingProcess(false, page)
                     showErrorLiveData.postValue(result.error)
                 }
             }
-            hideLoadingLiveData.postValue(Unit)
+        }
+    }
+    private fun loadingProcess(loading: Boolean, page: Int){
+        if (loading) {
+            if (page == Constant.START_PAGE)
+                showLoadingCenterLiveData.postValue(Unit)
+            else
+                showLoadingBottomLiveData.postValue(Unit)
+        }else{
+            if (page == Constant.START_PAGE)
+                hideLoadingCenterLiveData.postValue(Unit)
+            else
+                hideLoadingBottomLiveData.postValue(Unit)
         }
     }
 
