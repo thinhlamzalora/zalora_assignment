@@ -13,8 +13,8 @@ interface CatDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCats(cats: List<Cat>)
 
-    @Query("SELECT * FROM cats LIMIT :limit OFFSET :pageIndex")
-    suspend fun getCats(pageIndex: Int, limit: Int = Constant.PAGE_COUNT): List<Cat>
+    @Query("SELECT * FROM cats LIMIT :limit OFFSET :offset")
+    suspend fun getCats(offset: Int, limit: Int = Constant.PAGE_COUNT): List<Cat>
 
     @Query("DELETE FROM cats")
     suspend fun deleteAllCat()
