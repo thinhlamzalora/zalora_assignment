@@ -1,5 +1,4 @@
 package zalora.assignment.presentation.list_cat
-
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -12,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_list_cat.*
 import zalora.assignment.R
 import zalora.assignment.data.utils.Constant
 import zalora.assignment.data.utils.Constant.PICASO_TAG
-import zalora.assignment.domain.model.Cat
 import zalora.assignment.presentation.base.BaseActivity
 import zalora.assignment.presentation.utils.EndlessRecyclerViewScrollListener
 import zalora.assignment.presentation.utils.SpacesItemDecoration

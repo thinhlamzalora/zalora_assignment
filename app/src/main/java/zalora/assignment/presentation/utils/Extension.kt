@@ -13,7 +13,7 @@ import zalora.assignment.R
 import zalora.assignment.data.utils.Constant.PICASO_TAG
 import zalora.assignment.presentation.views.RatioImage
 
-fun RatioImage.loadImage(url: String, widthItem: Int, ratio: Double, target: Target){
+fun RatioImage.loadImage(url: String, widthItem: Int, ratio: Double, target: Target?){
     heightRatio = ratio
     if (target != null) {
         Picasso.get().load(url).resize(widthItem, 0).noFade()
