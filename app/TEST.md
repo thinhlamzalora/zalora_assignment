@@ -9,13 +9,10 @@
     - [How does it work](#How-does-it-works)
     - [Clean architecture flow](#Clean-architecture-flow)
     - [Benefit](#Benefit)
-- [External Dependencies](#external-dependencies)
-    - [Dependency manager](#dependency-manager)
-    - [Third party](#third-party)
-    - [Open Source Code](#open-source-code)
-    - [Open Source tooling](#open-source-tooling)
+- [Modularization Architecture](#Modularization-Architecture)
+    - [Modularization Diagram](#Modularization-Diagram)
+    - [Benefit of Modularization Architecture](#Benefit-of-Modularization-Architecture)
 
-_Schemas have been built with [Draw.io](https://draw.io) based on this [file](./assets/20191204-ios-architecture.drawio)_
 
 ## Clean Architecture
 
@@ -40,15 +37,8 @@ Activity or Fragment will define view mode, view model will call to use case or 
 	* Data layer: Repository (test repository call to right data source or not)
 	* Presentation layer: View Model (test observer execute like what we expect or not), logic for View and View holder (test data display like like what we expect or not)
 
-## Architecture layers
-
-To support this code architecture, we need to go further and break down the app into smaller modules. A module represent an isolated piece of logic that has one goal only.
-
-![architecture-layer](./assets/20191204-architecture-layer.png)
-
-_The current graph represent only partially the internal modules planned. It doesn't represent dependencies as a whole (Thrift or Statd missing for instance)_
-
-### What are the benefits
+## Modularization Architecture
+### Modularization Diagram
 
 Here is a list of some benefits of this new dependency architecture:
 
