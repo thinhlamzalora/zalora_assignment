@@ -1,5 +1,4 @@
 
-
 # Android Architecture
 
 ## Table of contents
@@ -7,7 +6,7 @@
 
 - [Clean Architecture](#Clean-Architecture)
     - [Clean architecture layer](#Clean-architecture-layer)
-    - [Clean architecture flow](#How-does-it-works)
+    - [Clean architecture flow](#Clean-architecture-flow)
     - [Benefit](#How-does-it-works)
 - [External Dependencies](#external-dependencies)
     - [Dependency manager](#dependency-manager)
@@ -24,23 +23,10 @@ _Schemas have been built with [Draw.io](https://draw.io) based on this [file](./
 ![unnamed](https://user-images.githubusercontent.com/71365481/122347718-876aa000-cf74-11eb-9fd7-6089b8b82d3d.png)
 * __Presentation__: UI (Activity / Fragment), MVVM (ViewModel), DI, Service/ WorkManager, etc
 * __Domain__: Use case, Model, Repository (Interface), make sure this layer dont have any Android Framework, it is pure Java or Kotlin
-* __View(Controller)__: the user interface that user can interact with
-* __ViewModel__: handle user interaction and bind data to the View layer. The current ViewModel also fetch and cache data from Model. In short, it handles most of data manipulation.
-* __Model__: represent business logic through Network / Storage layer.
+* __Data__: the user interface that user can interact with
+### Clean architecture flow
 
-One of the issue that the iOS team faces is that the ViewModel handles to many responsibilities and becomes hard to test. 
-
-Ideally the ViewModel should only get data and forward actions to services that translate it into data manipulation.
-
-Creating a separation for this data manipulation, fetching data, storing and handle changes will help to make the ViewModel more testable. 
-
-At the same time, it allow smaller feature, increase reusability of code and feature across the application.
-
-Going forward, the iOS team chose to include a new layer, using Interactor to handle the responsibility mentioned above.
-
-![architecture-future](./assets/architecture-future.png)
-
-Note: there is no limitation of how many View,ViewModel or Interactor that can be created and linked to. For instance, one complicated View can have multiple VieWModels. At the same time one ViewModel can communicate to many Interactors if necessary (Wishlist -> "add to wishlist", Cart -> "add to cart", etc.).
+![structure_clean_wishlist](https://user-images.githubusercontent.com/71365481/122355003-b9cbcb80-cf7b-11eb-9fc6-16e0942290ad.png)
 
 ## Architecture layers
 
