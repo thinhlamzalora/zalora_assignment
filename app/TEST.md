@@ -6,7 +6,7 @@
 
 - [Clean Architecture](#Clean-Architecture)
     - [Clean architecture layer](#Clean-architecture-layer)
-    - [How does it work](#How-does-it-work)
+    - [How does it work](#How-does-it-works)
     - [Clean architecture flow](#Clean-architecture-flow)
     - [Benefit](#Benefit)
 - [External Dependencies](#external-dependencies)
