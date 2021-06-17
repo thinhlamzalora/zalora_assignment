@@ -40,13 +40,8 @@ Activity or Fragment will define view mode, view model will call to use case or 
 ## Modularization Architecture
 ### Modularization Diagram
 
-Here is a list of some benefits of this new dependency architecture:
+![Modularization diagram](https://user-images.githubusercontent.com/71365481/122381395-138bc000-cf93-11eb-9bb2-6cfcf4d19600.png)
 
-* Improve testability, reusability and maintainability by isolating logic from main app.
-* Remove strong dependencies between layers (App -> Model, Pluto -> Model, Storage -> Model, etc.)
-* Remove complexity in Main app: read more [here](./core-refactoring.md)
-* Allow scalable project
-* Avoid spaghetti code 🍝 
 
 ### How does it works
 
