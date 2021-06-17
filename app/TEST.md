@@ -6,8 +6,9 @@
 
 - [Clean Architecture](#Clean-Architecture)
     - [Clean architecture layer](#Clean-architecture-layer)
+    - [How does it work](#How-does-it-work)
     - [Clean architecture flow](#Clean-architecture-flow)
-    - [Benefit](#How-does-it-works)
+    - [Benefit](#Benefit)
 - [External Dependencies](#external-dependencies)
     - [Dependency manager](#dependency-manager)
     - [Third party](#third-party)
@@ -24,9 +25,20 @@ _Schemas have been built with [Draw.io](https://draw.io) based on this [file](./
 * __Presentation__: UI (Activity / Fragment), MVVM (ViewModel), DI, Service/ WorkManager, etc
 * __Domain__: Use case, Model, Repository (Interface), make sure this layer dont have any Android Framework, it is pure Java or Kotlin
 * __Data__: the user interface that user can interact with
+### How does it works
+Clean architecture is a software design concept that separates the elements of a design into ring levels. It works based on The Dependency Inversion principle: high level modules should not depend on low level modules. both should depend on abstractions. Abstractions should not depend on details. Details should depend upon abstractions. Code on the inner layers don’t know anything about class, variable, functions in the outer layer.
 ### Clean architecture flow
 
 ![structure_clean_wishlist](https://user-images.githubusercontent.com/71365481/122355003-b9cbcb80-cf7b-11eb-9fc6-16e0942290ad.png)
+Activity or Fragment will define view mode, view model will call to use case or repository then repository will get data from network, database or cache and handle it then return back. Finally View will display it to user.
+### Benefit
+*  Your code is further decoupled (the biggest advantage.)
+* The UI can change easily, without changing the rest of the system. Because of separating business logic and UI
+* Communication and clarity: As you can see, business use cases are most easily visible. This provides excellent clarity.
+* It makes our code more testable. The business rules can be tested without the UI, Database, Web Server, or any other external element, and easy to write Unit Test for Each layer
+	* Domain layer: Use case (test use case call to right repository or not)
+	* Data layer: Repository (test repository call to right data source or not)
+	* Presentation layer: View Model (test observer execute like what we expect or not), logic for View and View holder (test data display like like what we expect or not)
 
 ## Architecture layers
 
