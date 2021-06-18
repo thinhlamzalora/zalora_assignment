@@ -55,7 +55,7 @@ While splitting your app into several features, all of those features will likel
 ### Feature Module
 ![Modularization diagram](https://user-images.githubusercontent.com/71365481/122505205-11267600-d026-11eb-826e-0311ace7863b.png)
 
-Each feature will be module and have it own resources
+Each feature will be module and have it own resources.
 Base, theme module, etc are called share module or core module because these modules can be used in one or some feature modules.
 ### CA layers inside the feature module
 
