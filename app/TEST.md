@@ -21,7 +21,7 @@
 
 ### Clean architecture layer
 
-<img src="app/clean_layer.png" width="200">
+<img src="clean_layer.png" width="200">
 * __Presentation__: UI (Activity / Fragment), MVVM (ViewModel), DI, Service/ WorkManager, etc
 * __Domain__: Use case, Model, Repository (Interface), make sure this layer dont have any Android Framework, it is pure Java or Kotlin
 * __Data__: the user interface that user can interact with
