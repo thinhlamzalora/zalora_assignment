@@ -1,4 +1,3 @@
-
 # Android Architecture
 
 ## Table of contents
@@ -8,7 +7,7 @@
     - [Clean architecture layer](#Clean-architecture-layer)
     - [How does it work](#How-does-it-works)
     - [Clean architecture flow](#Clean-architecture-flow)
-    - [Benefit](#Benefit)
+    - [Benefit of Clean Architecture](#Benefit-of-Clean-Architecture)
 - [Modularization Architecture](#Modularization-Architecture)
     - [Modularization Diagram](#Modularization-Diagram)
     - [Benefit of Modularization Architecture](#Benefit-of-Modularization-Architecture)
@@ -39,58 +38,12 @@ Activity or Fragment will define view mode, view model will call to use case or 
 
 ## Modularization Architecture
 ### Modularization Diagram
+![modularized_architecture](https://user-images.githubusercontent.com/71365481/122501617-3d8ac400-d01f-11eb-8620-b3da93920139.png)
 
-![Modularization diagram](https://user-images.githubusercontent.com/71365481/122381395-138bc000-cf93-11eb-9bb2-6cfcf4d19600.png)
-
-
-### How does it works
-
-The top layer is the closest to the user interaction. Navigating through the layers, we go deeper in the business logic, caring less about where the interaction comes from. 
-
-⚠️ Dependencies are __unidirectional__, only from bottom to top. For instance, _Networking_ module can be used in _Feed_ or _Catalog_ but can't depend of _Wishlist_. 
-
-At the same time, __modules can't depend of each other from same level__: _Feed_ can't depend of _Wishlist_, _Storage_ can't depend from _Networking_. However, using protocol oriented programming allows us to inject different dependencies through layers.
-
-⚠️ Dependencies are __optionals__: not every module should depend of previous layers: only _App_ implement _UI_ component, _Checkout_ might need only _Web Content_, etc.
-
-Ideally, each layer should limit dependencies to next layer: the _App_ one shouldn't access any _Core_ or _Foundation_ one directly, but use _Flow_ one to abstract any computation logic, except for specific usage like UI (style guide).
-
-## External Dependencies
-
-Here is a list of known external dependencies in iOS application.
-
-### Dependency manager
-* Carthage
-* Rome
-
-### Third party
-
-* Google Analytics / Google Tag Manager / Firebase Analytics (Analytics)
-* Firebase Crashlytics (Crash Report)
-* Swrve SDK (PushNotification + Analytics)
-* Adjust / Criteo (Analytics)
-* Facebook (Social Network + Analytics)
-* Akamai (Security + Monitoring)
-* Crittercism (Crash Report)
-
-### Open source code
-
-* RxSwift / RxCocoa / RxTest / RxBlocking
-* RxDataSources / RxSwiftExt
-* IGListKit (UI)
-* DrawerKit (UI)
-* YoutubePlayer-in-WKWebView (UI)
-* AMScrollingNavBar (UI)
-* DTFoundation / DTCoreText
-* SDWebImage (Image)
-* OCThumbor (Image)
-* SwiftyJSON
-* Alamofire (through Pluto)
-* Moya / RxMoya (through Pluto)
-* Cache (through Pluto)
-
-### Open source tooling
-
-* SwiftGen (code generator translation)
-* SwiftLint (code formatting)
-* Sourcery (code generator)
+While splitting your app into several features, all of those features will likely depend on some common business logic or UI components. Hence we need to introduce a third level of “library modules”.
+### Benefit of Modularization Architecture
+*  Speed up project build time, on top of that Gradle adds some caching where only some of thee modules are may be recompiled instead of the whole project
+* Take advantage of Android dynamic delivery
+* Reduce complexity for your app because each feature will have it own resource, example module A have it own layout resource, string resource, dimension resource
+* We can also have proper feature ownership per team (eg. the team X can work on code stored within a single feature module)
+* It is much easier to define cross-feature dependencies and certain features may depend on 3rd party libraries that are not needed for other features
