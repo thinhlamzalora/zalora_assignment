@@ -61,7 +61,8 @@ While splitting your app into several features, all of those features will likel
 * Each feature will be module and have it own resources.
 * Base, theme module, etc are called share module or core module because these modules can be used in one or some feature modules.
 ### CA layers inside the feature module
-![CA in Feature](https://user-images.githubusercontent.com/71365481/122507445-6d8b9480-d02a-11eb-9284-992268bec16c.png)
+
+<img src="ca_in_feature_module.png" width="720">
 
 ⚠️ With this approach we can get benefits from both Clean and Modularization Architecture
 
