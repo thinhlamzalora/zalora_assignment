@@ -44,7 +44,7 @@ Activity or Fragment will define view mode, view model will call to use case or 
 
 ## Modularization Architecture
 ### Modularization Diagram
-<img src="modularization_architecture.png" width="500">
+<img src="modularization_architecture.png" width="720">
 
 While splitting your app into several features, all of those features will likely depend on some common business logic or UI components. Hence we need to introduce a third level of “library modules”.
 ### Benefit of Modularization Architecture
