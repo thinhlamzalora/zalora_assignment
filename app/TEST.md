@@ -21,7 +21,7 @@
 
 ### Clean architecture layer
 
-![modularized_architecture]<img src="clean_layer.png" width="500">
+!<img src="clean_layer.png" width="500">
 * __Presentation__: UI (Activity / Fragment), MVVM (ViewModel), DI, Service/ WorkManager, etc
 * __Domain__: Use case, Model, Repository (Interface), make sure this layer dont have any Android Framework, it is pure Java or Kotlin
 * __Data__: the user interface that user can interact with
@@ -29,7 +29,7 @@
 Clean architecture is a software design concept that separates the elements of a design into ring levels. It works based on The Dependency Inversion principle: high level modules should not depend on low level modules. both should depend on abstractions. Abstractions should not depend on details. Details should depend upon abstractions. Code on the inner layers don’t know anything about class, variable, functions in the outer layer.
 ### Clean architecture flow
 
-![modularized_architecture]<img src="clean_flow.png" width="720">
+!<img src="clean_flow.png" width="720">
 Activity or Fragment will define view mode, view model will call to use case or repository then repository will get data from network, database or cache and handle it then return back. Finally View will display it to user.
 ### Benefit
 *  Your code is further decoupled (the biggest advantage.)
