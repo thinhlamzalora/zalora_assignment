@@ -1,3 +1,4 @@
+
 # Android Architecture
 
 ## Table of contents
@@ -11,6 +12,9 @@
 - [Modularization Architecture](#Modularization-Architecture)
     - [Modularization Diagram](#Modularization-Diagram)
     - [Benefit of Modularization Architecture](#Benefit-of-Modularization-Architecture)
+- [Architecture In Zalora App](#Architecture-In-Zalora-App)
+    - [Feature Module](#Feature-Module)
+    - [CA layers inside the feature module](#CA-layers-inside-the-feature-module)   
 
 
 ## Clean Architecture
@@ -47,3 +51,11 @@ While splitting your app into several features, all of those features will likel
 * Reduce complexity for your app because each feature will have it own resource, example module A have it own layout resource, string resource, dimension resource
 * We can also have proper feature ownership per team (eg. the team X can work on code stored within a single feature module)
 * It is much easier to define cross-feature dependencies and certain features may depend on 3rd party libraries that are not needed for other features
+## Architecture In Zalora App
+### Feature Module
+![Modularization diagram](https://user-images.githubusercontent.com/71365481/122505205-11267600-d026-11eb-826e-0311ace7863b.png)
+Each feature will be module and have it own resources
+Base, theme module, etc are called share module or core module because these modules can be used in one or some feature modules.
+### CA layers inside the feature module
+
+
