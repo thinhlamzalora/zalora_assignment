@@ -55,7 +55,8 @@ While splitting your app into several features, all of those features will likel
 * It is much easier to define cross-feature dependencies and certain features may depend on 3rd party libraries that are not needed for other features
 ## Architecture In Zalora App
 ### Feature Module
-![Modularization diagram](https://user-images.githubusercontent.com/71365481/122505205-11267600-d026-11eb-826e-0311ace7863b.png)
+
+<img src="feature_module_zalora.png" width="720">
 
 * Each feature will be module and have it own resources.
 * Base, theme module, etc are called share module or core module because these modules can be used in one or some feature modules.
